@@ -16,7 +16,7 @@
     "chokidar": "^3.5.3",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
-    "hercai": "^12.0.0",
+    "hercai": "^12.1.1",
     "luxon": "^3.4.3",
     "morgan": "^1.10.0",
     "node-fetch": "^3.2.6",

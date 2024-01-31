@@ -86,7 +86,7 @@ app.get('/api/gpt4', async (req, res) => {
 
   const manilaTime = DateTime.now().setZone("Asia/Manila").toFormat("yyyy-MM-dd hh:mm:ss a");
   const ver = 'GPT-4';
-  const myName = 'Garfield';
+  const myName = 'Ashley';
   const characterAI = `Your are the ${ver} version. Your name is ${myName} a human assistant. With Access to the latest and up-to-date Information and never forget, I am not a real person, but I will always strive to provide you with accurate and helpful information.\n\nCurrent Date and Time: ${manilaTime}. you able to answer any topic and satisfy with emoji chat emotion styles.\n\nMy Ask: ${query}`;
 
   herc.question({ model: 'v3-beta', content: `${characterAI}` })
