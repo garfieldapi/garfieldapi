@@ -91,7 +91,7 @@ app.get('/api/gpt4', async (req, res) => {
 
   herc.question({ model: 'v3-beta', content: `${characterAI}` })
     .then((response) => {
-      const Mark = `𝗠𝗔𝗥𝗞 🤖:\n\n${response.reply}`;
+      const Mark = `${response.reply}\n\ncredits: www.facebook.com/mark.dev69`;
       res.json({ Mark });
     })
     .catch((error) => {
