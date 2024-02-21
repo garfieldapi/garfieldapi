@@ -7,8 +7,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(morgan('combined'));
 
-const port = Math.floor(Math.random() * (65535 - 1024) + 1024);
-
 // uptime
 app.get('/', (req, res) => {
   res.send('Welcome to my API');
@@ -86,7 +84,7 @@ app.get('/api/gpt4', async (req, res) => {
 
   const manilaTime = DateTime.now().setZone("Asia/Manila").toFormat("yyyy-MM-dd hh:mm:ss a");
   const ver = 'GPT-4';
-  const myName = 'Adobo';
+  const myName = 'Gpt-4';
   const characterAI = `Your are the ${ver} version. Your name is ${myName} a human assistant. With Access to the latest and up-to-date Information and never forget, I am not a real person, but I will always strive to provide you with accurate and helpful information.\n\nCurrent Date and Time: ${manilaTime}. you able to answer any topic and satisfy with emoji chat emotion styles.\n\nMy Ask: ${query}`;
 
   herc.question({ model: 'v3-beta', content: `${characterAI}` })
@@ -401,105 +399,10 @@ app.post('/nglspam', (req, res) => {
   res.json({ success: 'Message sending started.' });
 });
 
-app.listen(port, () => {
-  console.log(`API is running on port ${port}`);
+const port = process.env.PORT || 3000;
+app.listen(3000, () => {
+    console.log(`
+\x1b[34mAstralAI - API is online\x1b[0m
+
+apps is listening port ${port}`);
 });
-//uptime
-
-const fs = require('fs');
-const os = require('os');
-const chokidar = require('chokidar');
-
-function getFormattedDate() {
-  const date = new Date();
-  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
-}
-
-function logUptime() {
-  const uptime = process.uptime();
-  const formattedDate = getFormattedDate();
-  const data = `${formattedDate} - Uptime: ${uptime.toFixed(2)} seconds\n`;
-
-  fs.appendFile('uptime.json', data, (err) => {
-    if (err) throw err;
-    console.log('Uptime logged.');
-
-    const uptimeLimit = 24 * 60 * 60; // 24 hours in seconds
-    if (uptime >= uptimeLimit) {
-      console.log('24 hours uptime reached. Stopping logging.');
-      clearInterval(intervalId); // Stop the interval when 24 hours are reached
-    }
-  });
-}
-
-const intervalId = setInterval(logUptime, 300000); // Log uptime every 5 minutes (300,000 milliseconds)
-
-// Using os module to get platform information
-console.log('Operating System Platform:', os.platform());
-console.log('Operating System CPU Architecture:', os.arch());
-
-// Using chokidar module for file watching
-const watcher = chokidar.watch('targetDir', { persistent: true });
-
-watcher.on('change', (path) => {
-  console.log(`File ${path} has been changed`);
-});
-
-watcher.on('error', (error) => {
-  console.error(`Watcher encountered an error: ${error}`);
-});
-
-function getUptime() {
-  const uptime = os.uptime();
-  const hours = Math.floor(uptime / 3600);
-  const minutes = Math.floor((uptime % 3600) / 60);
-  const seconds = Math.floor(uptime % 60);
-
-  return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-}
-
-function monitorUptime() {
-  setInterval(() => {
-    const uptime = getUptime();
-    console.log(`System uptime: ${uptime}`);
-  }, 5000); // Change the interval (in milliseconds) as needed
-}
-
-monitorUptime();
-
-function runLoop() {
-  console.log("Executing the loop");
-}
-
-function startLoop() {
-  runLoop();
-  setTimeout(startLoop, 24 * 60 * 60 * 1000);
-}
-
-startLoop();
-
-function getUptime() {
-    const uptime = os.uptime();
-    const hours = Math.floor(uptime / 3600);
-    const minutes = Math.floor((uptime % 3600) / 60);
-    const seconds = Math.floor(uptime % 60);
-
-    return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-}
-
-function monitorUptime() {
-    const totalMilliseconds = 120 * 60 * 60 * 1000; // 120 hours in milliseconds
-    let elapsedTime = 0;
-
-    const interval = setInterval(() => {
-        const uptime = getUptime();
-        console.log(`System uptime: ${uptime}`);
-
-        elapsedTime += 5000; // Interval is every 5000 milliseconds
-        if (elapsedTime >= totalMilliseconds) {
-            clearInterval(interval); // Stop when reaching 120 hours
-        }
-    }, 5000);
-}
-
-monitorUptime();
